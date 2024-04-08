@@ -12,24 +12,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GreenHarvest"
         tools:targetApi="31">
+
         <activity
-            android:name=".seller.SecondSeller"
-            android:exported="false" />
+            android:name=".logins.SignUpActivity"
+            android:exported="true" />
         <activity
-            android:name=".seller.SellerMain"
-            android:exported="false" />
-        <activity
-            android:name=".buyer.BuyerMain"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".logins.LoginActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".seller.SellerMain"
+            android:exported="true" />
+        <activity
+            android:name=".buyer.BuyerMain"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminMain"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"/>
+
+
     </application>
 
 </manifest>
