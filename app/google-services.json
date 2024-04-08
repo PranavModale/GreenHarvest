@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "729094344722",
+    "project_id": "greenharvest-1cb8d",
+    "storage_bucket": "greenharvest-1cb8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729094344722:android:c7fcc2882376d6abe508cb",
+        "android_client_info": {
+          "package_name": "com.example.greenharvest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcSQ9Toh9MzEY4VshvKtRHS4v23r1qHcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
