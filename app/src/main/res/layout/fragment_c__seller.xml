@@ -42,7 +42,7 @@
                     android:paddingStart="16dp">
 
                     <TextView
-                        android:id="@+id/farmerName"
+                        android:id="@+id/sellerName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Seller's name"

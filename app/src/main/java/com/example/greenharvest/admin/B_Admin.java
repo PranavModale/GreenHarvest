@@ -1,66 +1,114 @@
 package com.example.greenharvest.admin;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log; // Import Log class
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.greenharvest.R;
+import com.example.greenharvest.model.Container;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link B_Admin#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class B_Admin extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "B_Admin"; // Define a tag for logging
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public B_Admin() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment B_Admin.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static B_Admin newInstance(String param1, String param2) {
-        B_Admin fragment = new B_Admin();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private LinearLayout linearLayout;
+    private DatabaseReference containerRef;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        // Initialize Firebase Database reference
+        containerRef = FirebaseDatabase.getInstance().getReference().child("Containers");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_b__admin, container, false);
+        View view = inflater.inflate(R.layout.fragment_b__admin, container, false);
+
+        linearLayout = view.findViewById(R.id.linear_layout);
+
+        Button button = view.findViewById(R.id.createContainerButton);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the MainActivity
+                Intent intent = new Intent(getActivity(), CreateContainer.class);
+                startActivity(intent);
+            }
+        });
+
+        // Fetch container data from Firebase Database
+        fetchContainerData();
+
+        return view;
+    }
+
+    private void fetchContainerData() {
+        containerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange: Total containers found: " + dataSnapshot.getChildrenCount()); // Log the total number of containers found
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Container container = snapshot.getValue(Container.class);
+                    if (container != null) {
+                        Log.d(TAG, "onDataChange: Container retrieved: " + container.getContainerNumber()); // Log the container retrieved
+                        // Create a new card view for each container
+                        createContainerCardView(container);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database error
+                Log.e(TAG, "onCancelled: Failed to fetch containers: " + databaseError.getMessage()); // Log the error message
+                Toast.makeText(getContext(), "Failed to fetch containers: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void createContainerCardView(Container container) {
+        if (getContext() == null) {
+            return;
+        }
+
+        View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_container, null);
+
+        TextView containerNumberTextView = itemView.findViewById(R.id.container_number);
+        TextView containerNameTextView = itemView.findViewById(R.id.container_name);
+        TextView daysToConvertTextView = itemView.findViewById(R.id.days_to_convert);
+        TextView categoryTextView = itemView.findViewById(R.id.category);
+
+        // Set values from container object to the card view
+        containerNumberTextView.setText("Container Number: " + container.getContainerNumber());
+        containerNameTextView.setText("Container Name: " + container.getContainerName());
+        daysToConvertTextView.setText("Days to Convert: " + container.getDaysToConvert());
+        categoryTextView.setText("Category: " + container.getCategory());
+
+        linearLayout.addView(itemView);
     }
 }

@@ -8,6 +8,12 @@ public class AvailableWaste {
     private double weight;
     private Date date;
 
+
+    // Default constructor required for Firebase deserialization
+    public AvailableWaste() {
+        // Default constructor required for Firebase
+    }
+
     public AvailableWaste(String sellerId, String category, double weight, Date date) {
         this.sellerId = sellerId;
         this.category = category;

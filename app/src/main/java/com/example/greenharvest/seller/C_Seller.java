@@ -34,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class C_Seller extends Fragment {
 
-    private TextView farmerNameTextView;
+    private TextView sellerNameTextView;
     private TextView cityTextView;
     private TextView stateTextView;
     private TextView phoneNumberTextView;
@@ -124,7 +124,7 @@ public class C_Seller extends Fragment {
             actionBar.show();
         }
 
-        farmerNameTextView = view.findViewById(R.id.farmerName);
+        sellerNameTextView = view.findViewById(R.id.sellerName);
         cityTextView = view.findViewById(R.id.city);
         stateTextView = view.findViewById(R.id.state);
         phoneNumberTextView = view.findViewById(R.id.phoneNumber);
@@ -147,7 +147,7 @@ public class C_Seller extends Fragment {
                     if (snapshot.exists()) {
                         Seller seller = snapshot.getValue(Seller.class);
                         if (seller != null) {
-                            farmerNameTextView.setText(seller.getSellerName());
+                            sellerNameTextView.setText(seller.getSellerName());
                             cityTextView.setText(seller.getCity());
                             stateTextView.setText(seller.getState());
                             phoneNumberTextView.setText(seller.getPhoneNumber());
