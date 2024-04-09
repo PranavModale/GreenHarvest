@@ -6,8 +6,8 @@
     </style>
 
     <style name="Welcome" parent="Theme.Material3.Light">
-        <item name="android:statusBarColor">@color/green</item>
-        <item name="android:navigationBarColor">@color/green</item>
+        <item name="android:statusBarColor">@color/gray</item>
+        <item name="android:navigationBarColor">@color/gray</item>
 
     </style>
 

@@ -3,8 +3,9 @@
     android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg"
 
-android:background="@drawable/gradient_bg"
+
     android:layout_marginBottom="40dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -21,10 +22,10 @@ android:background="@drawable/gradient_bg"
 
 
         <Button
-            android:id="@+id/datePickerButton"
+            android:id="@+id/deleteContainerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Date"
+            android:text="Delet Container"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/weight"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,13 +38,13 @@ android:background="@drawable/gradient_bg"
             android:id="@+id/products_added_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Available waste"
+            android:text="List of Donors"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/products_recycler_view"
+            android:id="@+id/seller_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp" />
