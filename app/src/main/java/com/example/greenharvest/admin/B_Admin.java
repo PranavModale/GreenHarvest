@@ -90,7 +90,7 @@ public class B_Admin extends Fragment {
         });
     }
 
-    private void createContainerCardView(Container container) {
+    private void createContainerCardView(final Container container) {
         if (getContext() == null) {
             return;
         }
@@ -114,6 +114,18 @@ public class B_Admin extends Fragment {
         daysToConvertTextView.setText("Days to Convert: " + container.getDaysToConvert());
         creationDateTextView.setText("Creation Date: " + formattedDate);
 
+        // Set OnClickListener to the container card view
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Redirect to ContainerDetailsActivity and pass container information
+                Intent intent = new Intent(getActivity(), ContainerDetailsActivity.class);
+                intent.putExtra("containerId", container.getContainerId());
+                startActivity(intent);
+            }
+        });
+
         linearLayout.addView(itemView);
     }
+
 }

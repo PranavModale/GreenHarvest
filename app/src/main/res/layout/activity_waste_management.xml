@@ -6,6 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
     tools:context=".admin.WasteManagementActivity">
 
     <com.google.android.material.button.MaterialButton
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="Available Weight:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textWasteCategory"
+        app:layout_constraintTop_toBottomOf="@id/textWasteCategory"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"/>
 
@@ -72,6 +73,80 @@
         app:layout_constraintTop_toBottomOf="@id/textAvailableWeightValue"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Add more UI components below for container selection, etc. -->
+    <!-- TextView to display container capacity -->
+    <TextView
+        android:id="@+id/textContainerCapacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Container Capacity:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/containerSpinner"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <!-- TextView to display container capacity value -->
+    <TextView
+        android:id="@+id/textContainerCapacityValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/textContainerCapacity"
+        app:layout_constraintTop_toTopOf="@+id/textContainerCapacity"
+        android:layout_marginStart="8dp"/>
+
+    <!-- TextView to display available container capacity -->
+    <TextView
+        android:id="@+id/textAvailableCapacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available Capacity:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textContainerCapacityValue"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <!-- TextView to display available container capacity value -->
+    <TextView
+        android:id="@+id/textAvailableCapacityValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/textAvailableCapacity"
+        app:layout_constraintTop_toTopOf="@+id/textAvailableCapacity"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Material EditText to capture weight input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/weightInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter Weight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textAvailableCapacityValue"
+        app:layout_constraintEnd_toStartOf="@+id/addWeightButton"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/weightInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Material Button to add weight to the container -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addWeightButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Add Weight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weightInputLayout"
+        app:layout_constraintVertical_bias="0.171" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

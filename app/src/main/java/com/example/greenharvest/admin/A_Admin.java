@@ -134,8 +134,10 @@ public class A_Admin extends Fragment {
             return null; // Return null if context is null
         }
 
+        // Inflate the layout for the card view
         View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_waste_card, null);
 
+        // Initialize views
         TextView textSellerName = itemView.findViewById(R.id.textSellerName);
         TextView textDate = itemView.findViewById(R.id.textDate);
         TextView textWasteType = itemView.findViewById(R.id.textWasteType);
@@ -151,8 +153,21 @@ public class A_Admin extends Fragment {
         textWasteType.setText(availableWaste.getCategory());
         textWeight.setText("Weight: " + availableWaste.getWeight());
 
+        // Check if weight is 0
+        if (availableWaste.getWeight() == 0) {
+            // Delete node from database
+            availableWasteRef.child(availableWaste.getWasteId()).removeValue();
+
+            // Remove card view from screen
+            ViewGroup parentViewGroup = (ViewGroup) itemView.getParent();
+            if (parentViewGroup != null) {
+                parentViewGroup.removeView(itemView);
+            }
+        }
+
         return itemView;
     }
+
 
 
     private void showDatePickerDialog() {
