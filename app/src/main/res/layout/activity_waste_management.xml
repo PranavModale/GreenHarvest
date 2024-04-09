@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.WasteManagementActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/visitProfileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Visit Seller Profile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- TextView to display waste category -->
+    <TextView
+        android:id="@+id/textWasteCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Waste Category:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visitProfileButton"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <!-- TextView to display waste category value -->
+    <TextView
+        android:id="@+id/textWasteCategoryValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/textWasteCategory"
+        app:layout_constraintTop_toTopOf="@+id/textWasteCategory"
+        android:layout_marginStart="8dp"/>
+
+    <!-- TextView to display available weight -->
+    <TextView
+        android:id="@+id/textAvailableWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available Weight:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textWasteCategory"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <!-- TextView to display available weight value -->
+    <TextView
+        android:id="@+id/textAvailableWeightValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/textAvailableWeight"
+        app:layout_constraintTop_toTopOf="@+id/textAvailableWeight"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Spinner to select container -->
+    <Spinner
+        android:id="@+id/containerSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textAvailableWeightValue"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Add more UI components below for container selection, etc. -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

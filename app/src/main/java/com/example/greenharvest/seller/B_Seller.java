@@ -106,6 +106,8 @@ public class B_Seller extends Fragment {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             String sellerId = user.getUid();
+            // Generating a unique ID for the waste item
+            String wasteId = mDatabase.child("AvailableWaste").push().getKey();
             // Parsing date string to Date object
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             Date selectedDate;
@@ -117,8 +119,8 @@ public class B_Seller extends Fragment {
                 return;
             }
 
-            AvailableWaste availableWaste = new AvailableWaste(sellerId, category, cropWeight, selectedDate);
-            mDatabase.child("AvailableWaste").push().setValue(availableWaste)
+            AvailableWaste availableWaste = new AvailableWaste(wasteId, sellerId, category, cropWeight, selectedDate);
+            mDatabase.child("AvailableWaste").child(wasteId).setValue(availableWaste)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(requireContext(), "Request submitted successfully", Toast.LENGTH_SHORT).show();
                         clearFields();
@@ -128,6 +130,7 @@ public class B_Seller extends Fragment {
             Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
     // Method to clear input fields

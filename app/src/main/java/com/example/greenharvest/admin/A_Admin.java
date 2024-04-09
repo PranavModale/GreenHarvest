@@ -1,6 +1,7 @@
 package com.example.greenharvest.admin;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,6 +106,18 @@ public class A_Admin extends Fragment {
                     // Create card view with available waste and seller information
                     View itemView = createWasteCardView(availableWaste, seller);
                     linearLayout.addView(itemView);
+
+                    // Add OnClickListener to the cardview
+                    itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Open WasteManagementActivity and pass sellerId and wasteId
+                            Intent intent = new Intent(getActivity(), WasteManagementActivity.class);
+                            intent.putExtra("sellerId", sellerId);
+                            intent.putExtra("wasteId", availableWaste.getWasteId());
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
 
@@ -114,6 +127,7 @@ public class A_Admin extends Fragment {
             }
         });
     }
+
 
     private View createWasteCardView(AvailableWaste availableWaste, Seller seller) {
         if (getContext() == null) {

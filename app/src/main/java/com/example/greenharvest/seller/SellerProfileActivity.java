@@ -24,7 +24,6 @@ public class SellerProfileActivity extends AppCompatActivity {
     private TextView stateTextView;
     private TextView phoneNumberTextView;
 
-    private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
     @Override
@@ -32,9 +31,11 @@ public class SellerProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_c__seller);
 
-        // Initialize Firebase Auth and Database
-        mAuth = FirebaseAuth.getInstance();
+        // Initialize Database reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Retrieve seller ID from Intent extras
+        String sellerId = getIntent().getStringExtra("sellerId");
 
         // Initialize TextViews
         sellerNameTextView = findViewById(R.id.sellerName);
@@ -43,38 +44,32 @@ public class SellerProfileActivity extends AppCompatActivity {
         phoneNumberTextView = findViewById(R.id.phoneNumber);
 
         // Retrieve and display seller's data
-        displaySellerData();
+        displaySellerData(sellerId);
     }
 
     // Retrieve and display seller's data
-    private void displaySellerData() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            String sellerId = currentUser.getUid();
-            DatabaseReference sellerRef = mDatabase.child("Sellers").child(sellerId);
-            sellerRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        Seller seller = snapshot.getValue(Seller.class);
-                        if (seller != null) {
-                            sellerNameTextView.setText(seller.getSellerName());
-                            cityTextView.setText(seller.getCity());
-                            stateTextView.setText(seller.getState());
-                            phoneNumberTextView.setText(seller.getPhoneNumber());
-                        }
-                    } else {
-                        Toast.makeText(SellerProfileActivity.this, "Seller data not found", Toast.LENGTH_SHORT).show();
+    private void displaySellerData(String sellerId) {
+        DatabaseReference sellerRef = mDatabase.child("Sellers").child(sellerId);
+        sellerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Seller seller = snapshot.getValue(Seller.class);
+                    if (seller != null) {
+                        sellerNameTextView.setText(seller.getSellerName());
+                        cityTextView.setText(seller.getCity());
+                        stateTextView.setText(seller.getState());
+                        phoneNumberTextView.setText(seller.getPhoneNumber());
                     }
+                } else {
+                    Toast.makeText(SellerProfileActivity.this, "Seller data not found", Toast.LENGTH_SHORT).show();
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(SellerProfileActivity.this, "Failed to retrieve seller data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            Toast.makeText(SellerProfileActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(SellerProfileActivity.this, "Failed to retrieve seller data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
