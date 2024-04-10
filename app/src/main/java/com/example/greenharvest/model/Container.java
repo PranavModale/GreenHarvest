@@ -9,7 +9,7 @@ public class Container {
     private String containerName;
     private Date creationDate;
     private int daysToConvert; // Number of days it takes to convert waste to fertilizer
-    private ArrayList<String> arrayOfSellers;
+        private ArrayList<String> arrayOfSellers;
     private double totalWeight;
     private double capacity;
     private String adminId; // New field for adminId
