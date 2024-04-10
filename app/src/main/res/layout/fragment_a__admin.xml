@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
+        android:layout_marginBottom="21dp"
         android:id="@+id/linear_layout">
 
 
@@ -28,6 +29,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/weight"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent" />
 
 

@@ -3,7 +3,7 @@
     <string name="user_type_prompt">Select user type</string>
 
     <string-array name="user_types">
-        <item>Seller</item>
+        <item>Donor</item>
         <item>Buyer</item>
         <item>Admin</item>
     </string-array>

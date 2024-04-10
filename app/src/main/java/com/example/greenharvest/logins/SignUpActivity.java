@@ -19,9 +19,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.greenharvest.R;
+import com.example.greenharvest.admin.AdminMain;
+import com.example.greenharvest.buyer.BuyerMain;
 import com.example.greenharvest.model.Admin;
 import com.example.greenharvest.model.Buyer;
 import com.example.greenharvest.model.Seller;
+import com.example.greenharvest.seller.SellerMain;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -89,7 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
                 registerAdmin(DEFAULT_PROFILE_IMAGE_RESOURCE_ID);
             } else if (selectedUserType.equals("Buyer")) {
                 registerBuyer(DEFAULT_PROFILE_IMAGE_RESOURCE_ID);
-            } else if (selectedUserType.equals("Seller")) {
+            } else if (selectedUserType.equals("Donor")) {
                 registerSeller(DEFAULT_PROFILE_IMAGE_RESOURCE_ID);
             }
         });
@@ -127,13 +130,17 @@ public class SignUpActivity extends AppCompatActivity {
                                     .addOnCompleteListener(task1 -> {
                                         progressDialog.dismiss();
                                         if (task1.isSuccessful()) {
+                                            // Save user role in SharedPreferences
                                             SharedPreferences sharedPreferences = getSharedPreferences("rolepref", Context.MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.putString("role", "admin");
+                                            editor.putString("role", "admin"); // or "buyer", "seller" depending on the user type
                                             editor.apply();
-                                            Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                            // Redirect to Admin activity or any desired activity
-                                        } else {
+
+                                            // Redirect to AdminMain activity or any desired activity
+                                            startActivity(new Intent(SignUpActivity.this, AdminMain.class));
+                                            finish(); // Finish the SignUpActivity so that user can't navigate back to it after registration
+                                        }
+                                        else {
                                             String errorMessage = task1.getException().getMessage(); // Get the error message
                                             Log.e("Registration Failed", errorMessage); // Log the error message
                                             Toast.makeText(SignUpActivity.this, "Registration Failed: " + errorMessage, Toast.LENGTH_SHORT).show(); // Display error message in toast
@@ -177,13 +184,17 @@ public class SignUpActivity extends AppCompatActivity {
                                     .addOnCompleteListener(task1 -> {
                                         progressDialog.dismiss();
                                         if (task1.isSuccessful()) {
+                                            // Save user role in SharedPreferences
                                             SharedPreferences sharedPreferences = getSharedPreferences("rolepref", Context.MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
                                             editor.putString("role", "buyer");
                                             editor.apply();
-                                            Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                            // Redirect to Buyer activity or any desired activity
-                                        } else {
+
+                                            // Redirect to BuyerMainActivity or any desired activity
+                                            startActivity(new Intent(SignUpActivity.this, BuyerMain.class));
+                                            finish(); // Finish the SignUpActivity so that user can't navigate back to it after registration
+                                        }
+                                        else {
                                             String errorMessage = task1.getException().getMessage(); // Get the error message
                                             Log.e("Registration Failed", errorMessage); // Log the error message
                                             Toast.makeText(SignUpActivity.this, "Registration Failed: " + errorMessage, Toast.LENGTH_SHORT).show(); // Display error message in toast
@@ -226,13 +237,17 @@ public class SignUpActivity extends AppCompatActivity {
                                     .addOnCompleteListener(task1 -> {
                                         progressDialog.dismiss();
                                         if (task1.isSuccessful()) {
+                                            // Save user role in SharedPreferences
                                             SharedPreferences sharedPreferences = getSharedPreferences("rolepref", Context.MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
                                             editor.putString("role", "seller");
                                             editor.apply();
-                                            Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                            // Redirect to Seller activity or any desired activity
-                                        } else {
+
+                                            // Redirect to SellerMainActivity or any desired activity
+                                            startActivity(new Intent(SignUpActivity.this, SellerMain.class));
+                                            finish(); // Finish the SignUpActivity so that user can't navigate back to it after registration
+                                        }
+                                        else {
                                             String errorMessage = task1.getException().getMessage(); // Get the error message
                                             Log.e("Registration Failed", errorMessage); // Log the error message
                                             Toast.makeText(SignUpActivity.this, "Registration Failed: " + errorMessage, Toast.LENGTH_SHORT).show(); // Display error message in toast

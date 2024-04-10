@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             String selectedUserType = userTypeSpinner.getSelectedItem().toString();
             if (selectedUserType.equals("Admin")) {
                 loginAdmin();
-            } else if (selectedUserType.equals("Seller")) {
+            } else if (selectedUserType.equals("Donor")) {
                 loginSeller();
             } else if (selectedUserType.equals("Buyer")) {
                 loginBuyer();
