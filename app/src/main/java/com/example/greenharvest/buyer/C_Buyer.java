@@ -20,6 +20,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.greenharvest.MainActivity;
 import com.example.greenharvest.R;
 import com.example.greenharvest.common.EditProfile;
 import com.example.greenharvest.logins.LoginActivity;
@@ -110,7 +111,7 @@ public class C_Buyer extends Fragment {
         FirebaseAuth.getInstance().signOut();
 
         // Start the Welcome activity
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         requireActivity().finish();
     }

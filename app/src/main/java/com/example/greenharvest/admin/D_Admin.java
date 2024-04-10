@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.greenharvest.MainActivity;
 import com.example.greenharvest.R;
 import com.example.greenharvest.common.EditProfile;
 import com.example.greenharvest.logins.LoginActivity;
@@ -106,7 +107,7 @@ public class D_Admin extends Fragment {
         FirebaseAuth.getInstance().signOut();
 
         // Start the Welcome activity
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         requireActivity().finish();
     }
