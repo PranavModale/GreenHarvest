@@ -1,70 +1,76 @@
 package com.example.greenharvest.admin;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.greenharvest.R;
-import com.example.greenharvest.model.Seller;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class ContainerDetailsActivity extends AppCompatActivity {
 
-    private TextView sellerNameTextView, phoneNumberTextView;
-    private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private String containerId;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container_details);
 
-        sellerNameTextView = findViewById(R.id.sellerName);
-        phoneNumberTextView = findViewById(R.id.textSellerNumber);
-
-        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        displaySellerData();
+        containerId = getIntent().getStringExtra("containerId");
+        if (containerId == null) {
+            // Handle the case when containerId is not provided
+            Toast.makeText(this, "Container ID not provided", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        Button deleteContainerButton = findViewById(R.id.deleteContainerButton);
+        deleteContainerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteConfirmationDialog();
+            }
+        });
     }
 
-    private void displaySellerData() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            String sellerId = currentUser.getUid();
-            DatabaseReference sellerRef = mDatabase.child("Sellers").child(sellerId);
-            sellerRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        Seller seller = snapshot.getValue(Seller.class);
-                        if (seller != null) {
-                            sellerNameTextView.setText("Seller Name: " + seller.getSellerName());
-                            phoneNumberTextView.setText("Phone Number: " + seller.getPhoneNumber());
-                        }
-                    } else {
-                        Toast.makeText(ContainerDetailsActivity.this, "Seller data not found", Toast.LENGTH_SHORT).show();
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete Container")
+                .setMessage("Are you sure you want to delete this container?")
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteContainer(containerId);
                     }
-                }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(ContainerDetailsActivity.this, "Failed to retrieve seller data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+    private void deleteContainer(String containerId) {
+        DatabaseReference containerRef = mDatabase.child("Containers").child(containerId);
+        containerRef.removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error == null) {
+                    Toast.makeText(ContainerDetailsActivity.this, "Container deleted successfully", Toast.LENGTH_SHORT).show();
+                    finish(); // Close the activity after deleting the container
+                } else {
+                    Toast.makeText(ContainerDetailsActivity.this, "Failed to delete container: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            });
-        } else {
-            Toast.makeText(ContainerDetailsActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
-        }
+            }
+        });
     }
 }

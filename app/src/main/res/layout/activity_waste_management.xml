@@ -10,6 +10,13 @@
     android:layout_gravity="center_vertical"
     tools:context=".admin.WasteManagementActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="60dp">
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/visitProfileButton"
         android:layout_width="wrap_content"
@@ -37,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textWasteCategory"
         app:layout_constraintTop_toTopOf="@+id/textWasteCategory"
         android:layout_marginStart="8dp"/>
@@ -58,21 +66,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textAvailableWeight"
         app:layout_constraintTop_toTopOf="@+id/textAvailableWeight"
         android:layout_marginStart="8dp"/>
 
     <!-- Spinner to select container -->
-    <Spinner
-        android:id="@+id/containerSpinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textAvailableWeightValue"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <Spinner
+            android:id="@+id/containerSpinner"
+            android:layout_width="278dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textAvailableWeightValue" />
 
     <!-- TextView to display container capacity -->
     <TextView
@@ -91,6 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textContainerCapacity"
         app:layout_constraintTop_toTopOf="@+id/textContainerCapacity"
         android:layout_marginStart="8dp"/>
@@ -112,29 +122,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textAvailableCapacity"
         app:layout_constraintTop_toTopOf="@+id/textAvailableCapacity"
         android:layout_marginStart="8dp"/>
 
     <!-- Material EditText to capture weight input -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/weightInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter Weight"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAvailableCapacityValue"
-        app:layout_constraintEnd_toStartOf="@+id/addWeightButton"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/weightInputLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="Enter Waste Weight"
+            app:layout_constraintEnd_toStartOf="@+id/addWeightButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textAvailableCapacityValue">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/weightInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weightInput"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Material Button to add weight to the container -->
     <com.google.android.material.button.MaterialButton
@@ -142,12 +153,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Add Weight"
+        android:text="Add Weight to Container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/weightInputLayout"
         app:layout_constraintVertical_bias="0.171" />
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

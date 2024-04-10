@@ -2,6 +2,7 @@
 
     import android.content.Intent;
     import android.os.Bundle;
+    import android.text.TextUtils;
     import android.view.View;
     import android.widget.Button;
     import android.widget.EditText;
@@ -202,8 +203,20 @@
     // Update the call to refreshPage in addWeightToContainer to pass the selected container number
     // Method to add weight to the selected container
         private void addWeightToContainer() {
+
+            // Get the weight input from the EditText
+            String weightInputText = weightInput.getText().toString();
+
+            // Check if the weight input is empty
+            // so that our app will not crash if we click button while edit text is empty
+            if (TextUtils.isEmpty(weightInputText)) {
+                // Display a toast message prompting the user to add weight first
+                Toast.makeText(WasteManagementActivity.this, "Please enter a weight first", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             final String containerNumber = (String) containerSpinner.getSelectedItem();
-            final double weightToAdd = Double.parseDouble(weightInput.getText().toString());
+            final double weightToAdd = Double.parseDouble(weightInputText);
             final String sellerId = getIntent().getStringExtra("sellerId");
 
             DatabaseReference containerRef = FirebaseDatabase.getInstance().getReference().child("Containers");

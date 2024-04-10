@@ -86,6 +86,7 @@ public class CreateContainer extends AppCompatActivity {
 
     // Method to check if container number is unique
     // Method to check if container number is unique for the current admin
+    // Method to check if container number is unique for the current admin
     private void checkUniqueContainerNumber(final Container container) {
         databaseReference.orderByChild("containerNumber")
                 .equalTo(container.getContainerNumber())
@@ -105,6 +106,7 @@ public class CreateContainer extends AppCompatActivity {
                             // Container number is unique for the current admin, proceed to add to database
                             container.setArrayOfSellers(new ArrayList<>()); // Set empty list for now
                             String containerId = databaseReference.push().getKey();
+                            container.setContainerId(containerId); // Set the containerId
                             databaseReference.child(containerId).setValue(container);
                             showSuccessDialog();
                         } else {
@@ -120,6 +122,7 @@ public class CreateContainer extends AppCompatActivity {
                     }
                 });
     }
+
 
 
     // Method to show success dialog and clear fields

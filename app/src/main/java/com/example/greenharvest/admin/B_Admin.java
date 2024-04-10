@@ -2,6 +2,7 @@ package com.example.greenharvest.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,8 @@ public class B_Admin extends Fragment {
 
         Button button = view.findViewById(R.id.createContainerButton);
 
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +70,11 @@ public class B_Admin extends Fragment {
 
         return view;
     }
+
+
+
+
+
 
     private void fetchContainerData() {
         // Query to fetch containers with the current admin's id
@@ -113,6 +121,8 @@ public class B_Admin extends Fragment {
         totalWeightTextView.setText("Total Weight: " + container.getTotalWeight());
         daysToConvertTextView.setText("Days to Convert: " + container.getDaysToConvert());
         creationDateTextView.setText("Creation Date: " + formattedDate);
+
+        Log.d("B_Admin Fragment", "Container ID: " + container.getContainerId());
 
         // Set OnClickListener to the container card view
         itemView.setOnClickListener(new View.OnClickListener() {

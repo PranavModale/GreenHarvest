@@ -14,5 +14,10 @@
     <color name="darkgrey">#666666</color> <!-- Dark Gray -->
     <color name="mediumgrey">#999999</color> <!-- Medium Gray -->
     <color name="lightgrey">#F8F8F8</color> <!-- Light Gray -->
+    <color name="organic_color">#4CAF50</color> <!-- Organic Color -->
+    <color name="inorganic_color">#999999</color> <!-- Inorganic Color -->
+
+
+
 
 </resources>
