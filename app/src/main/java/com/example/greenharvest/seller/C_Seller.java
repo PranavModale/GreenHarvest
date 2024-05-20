@@ -112,59 +112,59 @@ public class C_Seller extends Fragment {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         requireActivity().finish();
+
     }
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState){
+            // Inflate the layout for this fragment
+            View view = inflater.inflate(R.layout.fragment_c__seller, container, false);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_c__seller, container, false);
+            ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.show();
+            }
 
-        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.show();
+            sellerNameTextView = view.findViewById(R.id.sellerName);
+            cityTextView = view.findViewById(R.id.city);
+            stateTextView = view.findViewById(R.id.state);
+            phoneNumberTextView = view.findViewById(R.id.phoneNumber);
+
+            // Retrieve and display seller's data
+            displaySellerData();
+
+            return view;
         }
-
-        sellerNameTextView = view.findViewById(R.id.sellerName);
-        cityTextView = view.findViewById(R.id.city);
-        stateTextView = view.findViewById(R.id.state);
-        phoneNumberTextView = view.findViewById(R.id.phoneNumber);
 
         // Retrieve and display seller's data
-        displaySellerData();
-
-        return view;
-    }
-
-    // Retrieve and display seller's data
-    private void displaySellerData() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            String sellerId = currentUser.getUid();
-            DatabaseReference sellerRef = mDatabase.child("Sellers").child(sellerId);
-            sellerRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        Seller seller = snapshot.getValue(Seller.class);
-                        if (seller != null) {
-                            sellerNameTextView.setText(seller.getSellerName());
-                            cityTextView.setText(seller.getCity());
-                            stateTextView.setText(seller.getState());
-                            phoneNumberTextView.setText(seller.getPhoneNumber());
+        private void displaySellerData () {
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if (currentUser != null) {
+                String sellerId = currentUser.getUid();
+                DatabaseReference sellerRef = mDatabase.child("Sellers").child(sellerId);
+                sellerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            Seller seller = snapshot.getValue(Seller.class);
+                            if (seller != null) {
+                                sellerNameTextView.setText(seller.getSellerName());
+                                cityTextView.setText(seller.getCity());
+                                stateTextView.setText(seller.getState());
+                                phoneNumberTextView.setText(seller.getPhoneNumber());
+                            }
+                        } else {
+                            Toast.makeText(requireContext(), "Seller data not found", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(requireContext(), "Seller data not found", Toast.LENGTH_SHORT).show();
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(requireContext(), "Failed to retrieve seller data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(requireContext(), "Failed to retrieve seller data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            }
         }
     }
-}
